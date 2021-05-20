@@ -1,9 +1,8 @@
 \documentclass{article}
 \usepackage[english,polish]{babel}
 \usepackage{polski}
-\usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
-\usepackage{soul}
+\usepackage{soulutf8}
 \usepackage{textcomp}
 \usepackage{color}
 \usepackage{enumitem}
@@ -12,10 +11,24 @@
 \usepackage{mathtools}
 \usepackage{listings}
 \usepackage{amsthm}
+\usepackage{imakeidx}
+\usepackage{tikz}
+\usetikzlibrary{calc,matrix}
+\usepackage{float}
 \usepackage[a4paper, total={6in, 10in}]{geometry}
+\usepackage[unicode]{hyperref}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=dkgreen,
+    urlcolor=black
+}
+
 \lstset{frame=tb,
     language=Bash,
     aboveskip=3mm,
@@ -34,14 +47,28 @@
     tabsize=4
 }
 \theoremstyle{remark}
-\newtheorem*{lemma}{Lemma}
+\newtheorem{lemma}{Stwierdzenie}[subsubsection]
+
+%\newcommand{\reals}{\mathbb{R}
+
+\setulcolor{red}
 
 \title{Warte umienia, ciekawe zagadnienia}
 \author{}
 \date{}
+\makeindex
+\usepackage[totoc]{idxlayout}
 \begin{document}
 \maketitle
+
+\tableofcontents
+\section{\texorpdfstring{\ul{Wstęp}}{Wstęp}}
+Uwaga: nowo zmienione sekcje są podkreślone na czerwono i wymienione tutaj.
+\begin{enumerate}
+  \item 20/05/2021: Metoda macierzowa
+\end{enumerate}
 \section{Wzory skróconego mnożenia}
+Wzory te są prawdziwe dla dowolnych liczb $a, b\in \mathbb R$.
 \begin{align}
   (a+b)^2&=a^2+2ab+b^2\\
   (a-b)^2&=a^2-2ab+b^2\\
@@ -52,15 +79,15 @@
 Po to, by było do bólu jasne, o czym jest mowa później.
 (Potencjalnie) nowe pojęcia wprowadzam pogrubione.
 \begin{itemize}
-  \item \textbf{Równanie liniowe} nad zmiennymi $x, y$
+  \item \textbf{Równanie liniowe}\index{równanie liniowe} nad zmiennymi $x, y$
   to każde równanie, które można sprowadzić do postaci
   $ax + by = c$, gdzie $a, b, c$ są znane, np. $3x+2y=-8$.
-  Jest to \textbf{postać standardowa}.
+  Jest to \textbf{postać standardowa}\index{postać standardowa równania liniowego}.
   Analogicznie definiujemy równanie liniowe
   nad większymi ilościami zmiennych
   (ważne jest, by każda zmienna była pomnożona tylko przez
    stałą, tj. coś co nie jest zmienną).
-  \subitem Liczby $a, b, c$ nazywam \textbf{współczynnikami} -
+  \subitem Liczby $a, b, c$ nazywam \textbf{współczynnikami}\index{współczynnik} -
   \textbf{współczynnik} to po prostu liczba która jest przez coś pomnożona
   (zwykle przez coś najważniejszego, czyli w równaniu jest to zmienna).
   Czasami to słowo używam konkretnie do liczby, która jest pomnożona przez zmienną,
@@ -69,17 +96,17 @@ Po to, by było do bólu jasne, o czym jest mowa później.
    uproszczeniu:
   $\frac{11}2x = 2$ (tu oczywiście nastąpiło odjęcie $\frac32x$ od obu stron).
   W ten sposób zmienna $x$ ma tylko jeden współczynnik.
-  \item \textbf{Zbiór} to kolekcja elementów (no shit, Sherlock),
+  \item \textbf{Zbiór}\index{zbiór} to kolekcja elementów (no shit, Sherlock),
     która nie zawiera dwóch tych samych elementów.
   \begin{itemize}
     \item Zbiór pusty oznaczamy przez $\emptyset$.
     \item Zbiór zawierający pojedynczy element (w tym przypadku liczbę 1)
   oznaczamy przez $\{1\}$ (więcej elementów można dodać po przecinku, np. $\{1, 2, 3\}$
-  ale nie będzie to tutaj potrzebne). Jednoelementowy zbiór nazywa się \textbf{singleton}.
-    \item Zbiór wszystkich liczb rzeczywistych oznaczamy przez $\mathbb R$
+  ale nie będzie to tutaj potrzebne). Jednoelementowy zbiór nazywa się \textbf{singleton}\index{singleton}.
+    \item Zbiór wszystkich liczb rzeczywistych oznaczamy przez $\mathbb R$ \index{$\mathbb{R}$}
   (odręcznie pisane jako wielka litera R z podwójną nóżką).
   \end{itemize}
-  \item \textbf{Układ równań liniowych} to ciąg równań, które jednocześnie uznajemy za prawdziwe.
+  \item \textbf{Układ równań liniowych}\index{układ równań liniowych} to ciąg równań, które jednocześnie uznajemy za prawdziwe.
   Przykłady:
   \begin{align*}
     &\left\{
@@ -103,7 +130,7 @@ Po to, by było do bólu jasne, o czym jest mowa później.
   Wtedy powiemy sobie, że każde z jego równań również
   jest nad tymi zmiennymi.
   \item Do każdego układu równań liniowych określamy \textbf{zbiór rozwiązań
-  dla zmiennej} $x$.
+  dla zmiennej}\index{układ równań liniowych!zbiór rozwiązań dla zmiennej} $x$.
   Chodzi o wszystkie możliwe wartości, jakie ta zmienna może przyjmować
   pod warunkiem, że wszystkie równania są prawdziwe.
   Są trzy przypadki:
@@ -121,7 +148,7 @@ Po to, by było do bólu jasne, o czym jest mowa później.
     \end{tabular}
   \end{center}
 
-  \item \textbf{Rozwiązanie} układu równań liniowych to
+  \item \textbf{Rozwiązanie} \index{układ równań liniowych!rozwiązanie} układu równań liniowych to
   przypisanie zmiennych, nad którym ten układ jest zdefiniowany do
   zbiorów rozwiązań dla tych zmiennych. Banalny przykład:
   Rozwiązaniem układu równań $
@@ -133,22 +160,22 @@ Po to, by było do bólu jasne, o czym jest mowa później.
     \right.$ jest przypisanie $x \to \{3\}, y \to \{2\}$.
   \textit{Można zauważyć, że takie przypisanie też jest funkcją.}
 
-  \item Układ równań określamy jako \textbf{oznaczony}, jeśli jego
+  \item Układ równań określamy jako \textbf{oznaczony}\index{układ równań liniowych!oznaczony}, jeśli jego
   rozwiązanie przypisuje do \textit{każdej} zmiennej singleton.
   Np. rozwiązanie z poprzedniego podpunktu jest dowodem na to, że ów układ
   jest oznaczony. Mówimy, że taki układ \textbf{ma jedno rozwiązanie}.
-  \item Układ równań określamy jako \textbf{sprzeczny}, jeśli jego
+  \item Układ równań określamy jako \textbf{sprzeczny}\index{układ równań liniowych!sprzeczny}, jeśli jego
   rozwiązanie przypisuje do \textit{przynajmniej jednej} zmiennej zbiór pusty ($\emptyset$).
   Mówimy, że taki układ \textbf{nie ma rozwiązań}.
   \item W przeciwnym wypadku, tj. jeśli rozwiązanie przypisuje do
   \textit{przynajmniej jednej} ze zmiennych $\mathbb R$,
   a do innych (jeśli istnieją) singleton,
-  układ jest \textbf{nieoznaczony}.
+  układ jest \textbf{nieoznaczony}\index{układ równań liniowych!nieoznaczony}.
 
 \end{itemize}
 \subsection{Spostrzeżenia przydatne do rozwiązywania zadań}
 Jak już zauważyliśmy IRL, układy równań z dwiema zmiennymi można rozwiązywać w
-następujący sposób:
+następujący sposób:\index{układ równań liniowych!rozwiązywanie!metoda naiwna}
 \begin{enumerate}
   \item Przekształć jedno z równań tak, by po jednej stronie była
   jedna z zmiennych, np. $x$. W ten sposób uzyskujemy
@@ -166,12 +193,14 @@ dałoby się go przyspieszyć. Zwróćmy uwagę, że przekształceń na równani
 poprzez wykonywanie działań po obu stronach równania. Np.
 dodając/odejmując coś do/od obu stron lub mnożąc/dzieląc obie strony przez jakąś liczbę
 (oczywiście pamiętając, żeby nie dzielić przez 0!).
+\index{układ równań liniowych!rozwiązywanie!metoda działań stronami}
+\index{układ równań liniowych!rozwiązywanie!metoda przeciwnych współczynników}
 Zauważmy jednak, że przekształcając jedno z równań, mamy pewną wiedzę,
 którą możemy wykorzystać - resztę równań! W końcu one też są prawdziwe, więc możemy z
 jednej strony naszego równania dodać
 (odjąć, nawet pomnożyć i podzielić, choć to jest radziej przydatne)
 jedną stronę innego równania, a z drugiej drugą.
-To się nazywa \textbf{dodawanie równań stronami} (oraz odejmowanie itd.).
+To się nazywa \textbf{dodawanie równań stronami}\index{działania stronami na równaniach} (oraz odejmowanie itd.).
 Ale po co nam to? Przydatność tego sposobu łatwo zilustrować takim przykładem:
 \begin{displaymath}
   \left\{
@@ -273,16 +302,17 @@ zwraca uwagę na to, że równanie bez $y$ to to samo, co równanie z $y$ pomno�
 przez zero. Na razie nie jest to ważne, ale warto trzymać to sobie w głowie, bo
 przyda się do zrozumienia trzeciego sposobu rozwiązywania układów równań...}
 
-\subsection{Zastosowanie}
+\subsection{Zastosowania}
 Widzieliśmy już zastosowanie układów równań liniowych do kilku rzeczy, przypomnijmy je.
 
 \subsubsection{Interpretacja geometryczna}
 Po pierwsze, równanie liniowe, po przekształceniu do formy $y=ax+b$ tworzy
-nam \textbf{równanie} (linii...) \textbf{prostej}. $a$ to \textbf{współczynnik kierunkowy}, czyli
+nam \textbf{równanie} (linii...) \textbf{prostej}\index{równanie prostej}. 
+$a$ to \textbf{współczynnik kierunkowy}\index{współczynnik kierunkowy}\index{równanie prostej!współczynnik kierunkowy}, czyli
 liczba mówiąca nam jak bardzo nachylona jest prosta. Gdy $a$ jest dodatnie, funkcja jest
 rosnąca (czyli linia idzie do góry gdy $x$ idzie w prawo). Gdy $a$ jest ujemne,
 funkcja jest malejąca (nigdy nie zgadniesz, jak wpływa to na linię). \textit{Możesz
-za to spróbować zgadnąć co się dzieje gdy $a=0$...} Z kolei $b$ to \textbf{wyraz wolny}.
+za to spróbować zgadnąć co się dzieje gdy $a=0$...} Z kolei $b$ to \textbf{wyraz wolny}\index{wyraz wolny}\index{równanie prostej!wyraz wolny}.
 Nazwa sugeruje pewien rodzaj swobody - tutaj odnosi się to do tego, że zmiana $b$ na
 większe lub mniejsze powoduje przesunięcie całej linii odpowiednio do góry lub w dół.
 Równanie prostej jest równaniem prostej dlatego, że każdy punkt $(x, y)$ na tej prostej
@@ -293,6 +323,7 @@ linie. Jednak jak wcześniej zauważyliśmy, w układzie równań chodzi o to, b
 równania były spełnione \textit{naraz}. Co to nam daje w kwestii punktów? Jak łatwo
 zauważyć, otrzymamy tylko te punkty, które spełniają oba równania. A więc na obrazku
 będą to punkty wspólne tych prostych.
+\index{równanie prostej!układ równań}
 \subitem Gdy układ jest oznaczony, proste się przecinają w jednym punkcie.
 \subitem Gdy układ jest nieoznaczony, proste się pokrywają.
 \subitem Gdy układ jest sprzeczny, proste są równoległe.
@@ -302,7 +333,7 @@ Widzimy zatem, że proste mają bardzo głębokie powiązania z równaniami lini
 Spójrzmy sobie na kolejne z takich powiązań.
 
 \subsubsection{Prosta przechodząca przez dwa punkty}
-
+\index{prosta przechodząca przez dwa punkty}
 A co jeśli mamy dwa punkty $(x, y)$, i chcemy wyznaczyć równanie prostej, która przez nie przechodzi?
 Widać, że będzie tylko jedna taka prosta. Będzie więc miała równanie: $y=ax+b$.
 Żeby wyznaczyć równanie, potrzebujemy poznać $a$ oraz $b$. Skoro każdy punkt prostej
@@ -352,9 +383,14 @@ najpierw odejmując stronami drugie równanie od pierwszego:
 \end{align*}
 Otrzymujemy równanie prostej $y=-\frac15a + \frac{42}5$.
 \subsubsection{Kiedy układy nie mają unikalnego rozwiązania?}
-Układ jest nieoznaczony, gdy jedno równanie da się sprowadzić poprzez
-\textit{elementarne działania} do drugiego.
-Elementarne działanie to takie, w którym robimy działanie na obu stronach z użyciem
+\begin{lemma}
+  Układ jest nieoznaczony, gdy jedno równanie da się sprowadzić poprzez
+  \textit{elementarne działania}
+  do drugiego.\index{układ równań liniowych!nieoznaczony!warunek}
+\end{lemma}
+
+Elementarne działanie\index{elementarne działania}\index{działania elementarne}\index{operacje elementarne} 
+to takie, w którym robimy działanie na obu stronach z użyciem
 albo liczby, albo innego równania z układu. Chodzi po prostu o to, by
 nie można było odjąć obu równań stronami od samych siebie i bohatersko stwierdzić, że
 voilà, oba równania sprowadziliśmy do $0=0$. Można też zauważyć, że zawsze, gdy da się
@@ -374,11 +410,206 @@ W poniższym przykładzie wystarczy podzielić drugie równanie przez $-3$:
 \end{displaymath}
 
 
-Układ jest sprzeczny, gdy takimi właśnie elementarnymi działaniami możemy sprowadzić go
-do fałszu (sprzeczności), czyli np. równania $0=1$.
+\begin{lemma}
+  Układ jest sprzeczny, gdy takimi właśnie elementarnymi działaniami możemy sprowadzić go
+  do fałszu (sprzeczności), czyli np. równania $0=1$.  
+  \index{układ równań liniowych!sprzeczny!warunek}
+\end{lemma}
+
 W praktyce jest to bardzo podobny warunek do poprzedniego, bo oba najłatwiej jest
 sprawdzić poprzez sprowadzenie obu równań do postaci standardowej, ale w taki sposób,
 aby przy obu zmiennych były te same współczynniki. Jeśli po drugiej stronie równań
 wyjdą nam te same liczby, układ jest nieoznaczony. Jeśli wyjdą różne, układ jest sprzeczny.
 
+
+
+
+\subsection{\texorpdfstring{\ul{Metoda macierzowa}}{Metoda macierzowa}}
+\index{układ równań liniowych!rozwiązywanie!metoda macierzowa}
+Istotną metodą rozwiązywania układów równań liniowych jest metoda korzystająca
+z macierzy\index{macierz} (czyli tabelek) liczbowych.
+Polega ona na sprowadzeniu wszystkich równań do postaci standardowej, po czym
+zmazaniu z niej (prawie) wszystkiego poza współczynnikami. Oto pobudzający wyobraźnię przykład:
+\[
+  \left\{
+    \begin{array}{lllllll}
+      3x &+& 2y &-& 2z &=& 5\\
+      4x &+& 7y && &=& 3\\
+      x &-& y &+& 7z &=& 9
+    \end{array}
+  \right. \implies \left[
+    \begin{array}{lll|l}
+      3 & 2 &- 2 & 5\\
+      4 & 7 &  0  & 3\\
+      1 &- 1 & 7 & 9
+    \end{array}
+  \right]
+\]
+Jest to tak naprawdę tylko inna reprezentacja tego samego układu - inny sposób zapisu.
+Co ważne, w każdym momencie rozwiązywania można zamienić te dwie reprezentacje
+między sobą - w bardzo naturalny sposób. Wymienione w poprzedniej sekcji operacje elementarne 
+mają bardzo naturalne odpowiedniki w reprezentacji macierzowej.
+Dodanie do siebie dwóch równań w naturalny sposób odpowiada dodaniu do siebie
+wierszy, a pomnożenie równania przez stałą odpowiada pomnożenie przez nią całego wiersza.
+\textit{Dodam, że jest jeszcze jedna operacja elementarna: zamiana kolejności wiersza. 
+Jest ona oczywista przy standardowej reprezentacji.}\index{operacje elementarne}
+
+Łatwo otrzymujemy zatem warunek na oznaczoność, nieoznaczoność i sprzeczność:
+\begin{lemma}
+  Układ równań liniowych w postaci macierzowej jest:
+  \begin{enumerate}
+    \item sprzeczny, gdy da się go sprowadzić za pomocą elementarnych działań do takiego,
+    w którym istnieje wiersz, w którym jedyny niezerowy wyraz jest w ostatniej kolumnie.
+    \index{układ równań liniowych!sprzeczny!warunek macierzowy}
+    \item oznaczony, gdy za pomocą elementarnych działań da się sprowadzić go do postaci
+    trójkątnej (o tym za chwilę).
+    \index{układ równań liniowych!oznaczony!warunek macierzowy}
+    \item nieoznaczony, gdy da się go sprowadzić za pomocą elementarnych działań do takiego,
+    w którym liczba niezerowych wierszy jest mniejsza niż liczba zmiennych.
+    \index{układ równań liniowych!nieoznaczony!warunek macierzowy}
+  \end{enumerate}
+  Dodatkowo, każdy z tych warunków wyklucza pozostałe oraz przynajmniej
+  jeden zawsze zachodzi dla dowolnego układu.
+\end{lemma}
+Zanim przejdę do postaci trójkątnej, wytłuszczę intuicję, która się pojawiła w ostatnim
+podpunkcie. Chodzi o sformułowanie "liczba niezerowych wierszy jest mniejsza niż liczba zmiennych".
+Oczywiście w przypadku standardowej reprezentacji odpowiada to sytuacji, gdy 
+mamy mniej równań niż zmiennych.
+
+\subsubsection{Postać trójkątna}\index{macierz!postać trójkątna}
+Macierz kwadratowa jest w postaci trójkątnej, gdy pod przekątną ma same zera.
+Ale co to dokładnie oznacza? Przekątną macierzy nazywamy tylko przekątną idącą z lewego górnego
+rogu:\index{macierz!przekątna}
+\[\left[
+  \begin{array}{llll}
+    \circ& && \\
+    &\circ&&\\
+    &&\circ&\\
+    &&&\circ\\
+  \end{array}
+\right]\]
+\textit{Konkretniej mówiąc, macierz z samymi zerami pod przekątną nazywamy górnotrójkątną,
+\index{macierz!postać trójkątna!górno-}
+a z samymi zerami nad przekątną dolnotrójkątną,
+\index{macierz!postać trójkątna!dolno-}
+ale to nie ma dla nas znaczenia...}
+Macierz możemy sprowadzić do postaci (\textit{górno}) trójkątnej (nazywamy to schodkowaniem), 
+\index{macierz!schodkowanie}
+poprzez następującą procedurę, która zeruje po kolei całe kolumny pod przekątną:
+\begin{enumerate}
+  \item Spośród niewyzerowanych kolumn, wybierz tą najbardziej po lewej.
+  \item Spośród niewyzerowanych wierszy, wybierz ten z największą liczbą w zerowanej 
+  kolumnie.
+  \item Zamień ten wiersz z najwyższym niewyzerowanym. 
+  \item Do wszystkich niższych wierszy dodaj odpowiednio pomnożony wiersz z największą
+  liczbą tak, by liczba w rozpatrywanej kolumnie się wyzerowała.
+  \item Powtarzaj do skutku.
+\end{enumerate}
+Kroki 2 i 3 nie są konieczne, jednak w praktyce często ułatwiają obliczenia w kroku 4.
+
+Macierz trójkątna ma tą fajną własność, że jesteśmy w stanie łatwo znaleźć wartość 
+ostatniej zmiennej, a potem każdej poprzedniej na podstawie wartości już policzonych zmiennych.
+
+Sprowadzanie macierzy do postaci trójkątnej nazywamy \textit{eliminacją Gaussa}\index{eliminacja Gaussa}.
+Jest to najszybszy sposób na rozwiązywanie \textit{dowolnych} układów równań. Znamy jednak
+szybszy algorytm, który działa tylko dla macierzy 2x2 oraz 3x3 (odpowiada to układom
+równań 2 i 3 zmiennych).
+
+\subsection{\texorpdfstring{\ul{Metoda wyznaczników}}{Metoda wyznaczników}}\index{układ równań liniowych!rozwiązywanie!metoda wyznaczników}
+Wyznacznik macierzy\index{macierz!wyznacznik} to liczba, która ma różne ciekawe właściwości.
+
+Jeśli $A$ jest macierzą, jej wyznacznik oznaczamy $\det A$.
+
+Ma on sens tylko dla macierzy kwadratowych, więc nie możemy go bezpośrednio policzyć
+dla reprezentacji układów równań. Możemy za to go obliczyć dla tej części ,,po lewej''
+od znaków = w oryginalnym układzie.
+
+\subsubsection{Wyznaczanie wyznacznika}
+W ogólności bardzo trudno jest wyznaczyć wyznacznik macierzy, jednak znamy łatwy
+sposób obliczania go dla macierzy 2x2 oraz 3x3: metoda krzyżowa\index{macierz!wyznacznik!metoda krzyżowa}.
+Dla macierzy 2x2 wygląda ona tak:
+\[A=\left[
+  \begin{array}{ll}
+    a&b\\
+    c&d
+  \end{array}
+\right]\]\[ \det A=ad-bc \]
+A dla 3x3 tak:
+\[A=\left[
+  \begin{array}{lll}
+    a&b&c\\
+    d&e&f\\
+    g&h&i
+  \end{array}
+\right]\]\[ \det A=aei+bfg+cdh-ceg-afh-bdi\]
+
+Wizualnie wygląda to tak:
+\[\left[
+  \begin{array}{lll|ll}
+    a&b&c&a&b\\
+    d&e&f&d&e\\
+    g&h&i&g&h 
+  \end{array}
+\right]\]
+\newcommand\checkers[1]{%
+ \draw [BarreStyle=red] (#1-1-1.120) node[SignePlus=red] {$+$} to (#1-3-3.320) ;
+ \draw [BarreStyle=red] (#1-1-2.120) node[SignePlus=red] {$+$} to (#1-3-4.320) ;
+ \draw [BarreStyle=red] (#1-1-3.120) node[SignePlus=red] {$+$} to (#1-3-5.320) ;
+ \draw [BarreStyle=blue]  (#1-1-3.35) node[SigneMoins=blue] {$-$} to (#1-3-1.230);
+ \draw [BarreStyle=blue]  (#1-1-4.35) node[SigneMoins=blue] {$-$} to (#1-3-2.230);
+ \draw [BarreStyle=blue]  (#1-1-5.35) node[SigneMoins=blue] {$-$} to (#1-3-3.230);
+ \draw let \p1 = (#1-3-3.south east), \p2 = ( $ (#1-1-3.north east)!.5!(#1-1-4.north) $ ) in (\p2) -- (\x2,\y1);
+ \draw let \p1 = (#1-1-1.north west), \p2 = (#1-3-1.south west) in (\p2) -- (\x2,\y1);
+}
+\tikzset{BarreStyle/.style =   {opacity=.4,line width=4mm,line cap=round,color=#1}}
+\tikzset{SignePlus/.style  =   {above left,,opacity=0.8,circle,inner sep=1pt,fill=#1!50}}
+\tikzset{SigneMoins/.style =   {above right,,opacity=0.8,circle,inner sep=1pt,fill=#1!50}}
+\begin{figure}[H]
+  \tikzset{node style ge/.style={circle}}
+  \centering
+    \begin{tikzpicture}[baseline=(A.center)]
+    \matrix (A) [matrix of math nodes, nodes = {node style ge},column sep=0 mm,nodes={text width=1em,align=right}] 
+  {      
+    a&b&c&a&b\\
+    d&e&f&d&e\\
+    g&h&i&g&h\\
+  };
+  \checkers{A}
+  \end{tikzpicture}\\[1em]
+\end{figure}
+
+\subsubsection{Zastosowanie wyznacznika}
+\begin{lemma}
+  Gdy wyznacznik macierzy układu jest równy 0, układ równań nie może być oznaczony.
+\end{lemma}
+\begin{lemma}
+  Gdy wyznacznik macierzy układu nie jest równy 0, łatwo na jego podstawie obliczyć
+  rozwiązanie układu. Zmiennej $x$ przypiszemy liczbę $\dfrac{\det A_x}{\det A}$, gdzie
+  $A$ jest macierzą ,,po lewej'' od = w macierzy układu, a $A_x$ otrzymujemy poprzez 
+  zamianę kolumny odpowiadającej zmiennej $x$ na kolumnę ,,po prawej'' od =.
+  Weźmy dla przykładu układ równań:
+  \[\left[
+    \begin{array}{lll|l}
+      1&2&3&10\\
+      4&5&6&11\\
+      7&8&9&12
+    \end{array}
+  \right]\]
+  Otrzymujemy następujący wzór na $x$ ($x$ odpowiada pierwszej kolumnie):
+  \[x = \frac{\det\left(\left[
+    \begin{array}{lll}
+      10&2&3\\
+      11&5&6\\
+      12&8&9
+    \end{array}
+  \right]\right)}{\det\left(\left[
+    \begin{array}{lll}
+      1&2&3\\
+      4&5&6\\
+      7&8&9
+    \end{array}
+  \right]\right)}\]
+\end{lemma}
+
+\printindex
 \end{document}
