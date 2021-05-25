@@ -62,7 +62,13 @@
 \maketitle
 
 \tableofcontents
-\section{\texorpdfstring{\ul{Wstęp}}{Wstęp}}
+% last tagged as new:
+% - Metoda macierzowa / Postać trójkątna
+% - Metoda wyznaczników / Wyznaczanie wyznacznika
+
+% This is how you mark section as new
+%\section{\texorpdfstring{\ul{Wstęp}}{Wstęp}}
+\section{Wstęp}
 Uwaga: nowo zmienione sekcje są podkreślone na czerwono i wymienione tutaj.
 \begin{enumerate}
   \item 20/05/2021: Metoda macierzowa
@@ -424,7 +430,7 @@ wyjdą nam te same liczby, układ jest nieoznaczony. Jeśli wyjdą różne, ukł
 
 
 
-\subsection{\texorpdfstring{\ul{Metoda macierzowa}}{Metoda macierzowa}}
+\subsection{Metoda macierzowa}
 \index{układ równań liniowych!rozwiązywanie!metoda macierzowa}
 Istotną metodą rozwiązywania układów równań liniowych jest metoda korzystająca
 z macierzy\index{macierz} (czyli tabelek) liczbowych.
@@ -477,7 +483,8 @@ Oczywiście w przypadku standardowej reprezentacji odpowiada to sytuacji, gdy
 mamy mniej równań niż zmiennych.
 
 \subsubsection{Postać trójkątna}\index{macierz!postać trójkątna}
-Macierz kwadratowa jest w postaci trójkątnej, gdy pod przekątną ma same zera.
+Macierz kwadratowa jest w postaci trójkątnej, \ul{(mówi się też po prostu, że }\textit{\ul{jest trójkątna}}\ul{)}\index{macierz!trójkątna}
+gdy pod przekątną ma same zera.
 Ale co to dokładnie oznacza? Przekątną macierzy nazywamy tylko przekątną idącą z lewego górnego
 rogu:\index{macierz!przekątna}
 \[\left[
@@ -488,6 +495,19 @@ rogu:\index{macierz!przekątna}
     &&&\circ\\
   \end{array}
 \right]\]
+
+\ul{A zatem macierz z samymi zerami pod przekątną wygląda np. tak:}
+\[\left[
+  \begin{array}{llll}
+    1&2 &3&4 \\
+    0&5&6&7\\
+    0&0&8&9\\
+    0&0&0&10\\
+  \end{array}
+\right]\]
+
+\textit{\ul{(oczywiście na przekątnej i nad nią też mogą być zera...)}}
+
 \textit{Konkretniej mówiąc, macierz z samymi zerami pod przekątną nazywamy górnotrójkątną,
 \index{macierz!postać trójkątna!górno-}
 a z samymi zerami nad przekątną dolnotrójkątną,
@@ -495,7 +515,11 @@ a z samymi zerami nad przekątną dolnotrójkątną,
 ale to nie ma dla nas znaczenia...}
 Macierz możemy sprowadzić do postaci (\textit{górno}) trójkątnej (nazywamy to schodkowaniem), 
 \index{macierz!schodkowanie}
-poprzez następującą procedurę, która zeruje po kolei całe kolumny pod przekątną:
+poprzez poniższą procedurę, \ul{która po kolei sprowadza całe kolumny do takiej postaci,
+jaką będą przyjmować w postaci trójkątnej, czyli z samymi zerami pod przekątną.
+Tak sprowadzone kolumny będą nazywane wyzerowanymi.}
+
+
 \begin{enumerate}
   \item Spośród niewyzerowanych kolumn, wybierz tą najbardziej po lewej.
   \item Spośród niewyzerowanych wierszy, wybierz ten z największą liczbą w zerowanej 
@@ -515,7 +539,8 @@ Jest to najszybszy sposób na rozwiązywanie \textit{dowolnych} układów równa
 szybszy algorytm, który działa tylko dla macierzy 2x2 oraz 3x3 (odpowiada to układom
 równań 2 i 3 zmiennych).
 
-\subsection{\texorpdfstring{\ul{Metoda wyznaczników}}{Metoda wyznaczników}}\index{układ równań liniowych!rozwiązywanie!metoda wyznaczników}
+\subsection{Metoda wyznaczników}
+\index{układ równań liniowych!rozwiązywanie!metoda wyznaczników}
 Wyznacznik macierzy\index{macierz!wyznacznik} to liczba, która ma różne ciekawe właściwości.
 
 Jeśli $A$ jest macierzą, jej wyznacznik oznaczamy $\det A$.
@@ -526,7 +551,9 @@ od znaków = w oryginalnym układzie.
 
 \subsubsection{Wyznaczanie wyznacznika}
 W ogólności bardzo trudno jest wyznaczyć wyznacznik macierzy, jednak znamy łatwy
-sposób obliczania go dla macierzy 2x2 oraz 3x3: metoda krzyżowa\index{macierz!wyznacznik!metoda krzyżowa}.
+sposób obliczania go dla macierzy 2x2 oraz 3x3: metoda krzyżowa\index{macierz!wyznacznik!metoda krzyżowa},
+\ul{znana też pod nazwą }\textbf{\ul{reguła Sarrusa}}\index{macierz!wyznacznik!reguła Sarrusa}.
+
 Dla macierzy 2x2 wygląda ona tak:
 \[A=\left[
   \begin{array}{ll}
